@@ -37,17 +37,12 @@ public with sharing class ExchangeRatesConnection implements IExchangeRatesConne
             System.debug(httpResponse);
             if (httpResponse.getStatusCode() == 200) {
                 JSONParser parser = JSON.createParser(httpResponse.getBody());
-                System.debug('Body: '+httpResponse.getBody());
                 result = (ExchangeRateResult) JSON.deserialize(httpResponse.getBody(), ExchangeRateResult.class);
                 result.success = result.success == null ? false : result.success;
-                System.debug('result: '+result);
                 //populating apilog data
                 apilog.status_code__c = httpResponse.getStatusCode();
                 apilog.Success__c = result.success;
                 apilog.Body_Result__c = httpResponse.getBody();
-                if(result.error != null && !result.error.isEmpty()){
-                    System.debug('result.error: '+result.error);        
-                }
             }
         } catch (Exception e) {
             apilog.Success__c = false;
