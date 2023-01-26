@@ -4,9 +4,8 @@
     <description>Endpoint call</description>
     <externalId>false</externalId>
     <label>Endpoint</label>
-    <length>255</length>
-    <required>true</required>
+    <length>131072</length>
     <trackTrending>false</trackTrending>
-    <type>Text</type>
-    <unique>false</unique>
+    <type>LongTextArea</type>
+    <visibleLines>4</visibleLines>
 </CustomField>

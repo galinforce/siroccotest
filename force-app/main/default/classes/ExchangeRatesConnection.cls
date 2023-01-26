@@ -4,12 +4,11 @@ public with sharing class ExchangeRatesConnection implements IExchangeRatesConne
     
     public class ExchangeRateResult{
         public Boolean success {get; set;}
-        public Integer timestamp {get; set;}
+        public Double timestamp {get; set;}
         public String base {get; set;}
         public Map<String, Double> rates {get; set;}
         public Map<String, String> error {get; set;}
     }
-
 
     public interface IExchangeRatesConnector {
         ExchangeRateResult retrieveLatestExchangeRate(Set<String> currenciesISOSet);
@@ -34,11 +33,11 @@ public with sharing class ExchangeRatesConnection implements IExchangeRatesConne
             req.setMethod('GET');
             Http http = new Http();
             HTTPResponse httpResponse = http.send(req);
-            System.debug(httpResponse);
             if (httpResponse.getStatusCode() == 200) {
                 JSONParser parser = JSON.createParser(httpResponse.getBody());
                 result = (ExchangeRateResult) JSON.deserialize(httpResponse.getBody(), ExchangeRateResult.class);
                 result.success = result.success == null ? false : result.success;
+                result.timestamp = result.timestamp != null ? result.timestamp*1000 : null; // multiplying the timestamp by 1000 to match the lenght of Salesforce timestamps
                 //populating apilog data
                 apilog.status_code__c = httpResponse.getStatusCode();
                 apilog.Success__c = result.success;

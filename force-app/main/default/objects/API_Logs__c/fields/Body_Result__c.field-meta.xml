@@ -4,7 +4,8 @@
     <description>Body result of the callout</description>
     <externalId>false</externalId>
     <label>Body Result</label>
-    <required>false</required>
+    <length>131072</length>
     <trackTrending>false</trackTrending>
-    <type>TextArea</type>
+    <type>LongTextArea</type>
+    <visibleLines>4</visibleLines>
 </CustomField>
